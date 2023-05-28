@@ -1,9 +1,9 @@
 import { getDB } from "../db/DB";
-import { ControllerType, SignInBody } from "../types/ControllersTypes";
+import { ControllerType, SignInBodyType } from "../types/ControllersTypes";
 import { JWTSign } from "./auth/Auth";
 import bcrypt from "bcrypt";
 
-const ValidateBody = (body: SignInBody) => {
+const ValidateBody = (body: SignInBodyType) => {
   if (body.email && body.password) {
     return Object.values(body).includes("") ||
       Object.values(body).includes(null)
