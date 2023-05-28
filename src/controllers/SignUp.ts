@@ -1,5 +1,6 @@
 import { getDB } from "../db/DB";
 import { ControllerType } from "../types/ControllersTypes";
+import Mail from "../utils/Mail";
 
 export const SignUp: ControllerType = {
   path: "/signup",
@@ -17,7 +18,9 @@ export const SignUp: ControllerType = {
           getDB()
             .insertOne(SignUpData(first_name, last_name, email, password))
             .then((data) => {
-              res.json({ message: `Created user ${data.insertedId}` });
+              Mail(first_name, last_name).then((mailData) => {
+                res.json({ message: `Created user ${data.insertedId}` });
+              });
             });
         } catch (err) {
           res.status(500).json({ message: `Couldn't create user ${err}` });
