@@ -1,5 +1,6 @@
 import { getDB } from "../db/DB";
 import { ControllerType } from "../types/ControllersTypes";
+import bcrypt from "bcrypt";
 import Mail from "../utils/Mail";
 
 export const SignUp: ControllerType = {
@@ -14,13 +15,22 @@ export const SignUp: ControllerType = {
       ).length;
 
       if (findLength == 0) {
+        const passwordHash = await bcrypt.hash(password, 10);
+
         try {
           getDB()
-            .insertOne(SignUpData(first_name, last_name, email, password))
+            .insertOne(SignUpData(first_name, last_name, email, passwordHash))
             .then((data) => {
-              Mail(first_name, last_name).then((mailData) => {
-                res.json({ message: `Created user ${data.insertedId}` });
-              });
+              Mail(first_name, last_name)
+                .then((mailData) => {
+                  res.json({
+                    message: `Created user ${data.insertedId}`,
+                  });
+                })
+                .catch((err) => {
+                  res.status(500).send({ message: "Something went wrong" });
+                  console.log(err);
+                });
             });
         } catch (err) {
           res.status(500).json({ message: `Couldn't create user ${err}` });
