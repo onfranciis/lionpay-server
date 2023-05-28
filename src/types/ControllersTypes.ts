@@ -6,3 +6,8 @@ export interface ControllerType {
   method: keyof typeof app;
   handler: RequestHandler;
 }
+
+export interface SignInBody {
+  email: string;
+  password: string;
+}
