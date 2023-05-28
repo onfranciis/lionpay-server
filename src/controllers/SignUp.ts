@@ -1,7 +1,7 @@
 import { getDB } from "../db/DB";
-import { controllerType } from "../types/ControllersTypes";
+import { ControllerType } from "../types/ControllersTypes";
 
-export const SignUp: controllerType = {
+export const SignUp: ControllerType = {
   path: "/signup",
   method: "post",
   handler: async (req, res) => {

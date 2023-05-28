@@ -1,6 +1,6 @@
-import { controllerType } from "../types/ControllersTypes";
+import { ControllerType } from "../types/ControllersTypes";
 
-export const Base: controllerType = {
+export const Base: ControllerType = {
   path: "/",
   method: "get",
   handler: (req, res) => {
