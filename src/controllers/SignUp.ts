@@ -1,6 +1,11 @@
 import { getDB } from "../db/DB";
-import { ControllerType } from "../types/ControllersTypes";
+import {
+  ControllerType,
+  SignUpBodyType,
+  SignUpDataType,
+} from "../types/ControllersTypes";
 import bcrypt from "bcrypt";
+import { v4 as uuid } from "uuid";
 import Mail from "../utils/Mail";
 
 export const SignUp: ControllerType = {
@@ -16,10 +21,19 @@ export const SignUp: ControllerType = {
 
       if (findLength == 0) {
         const passwordHash = await bcrypt.hash(password, 10);
+        const confirmationId = uuid();
 
         try {
           getDB()
-            .insertOne(SignUpData(first_name, last_name, email, passwordHash))
+            .insertOne(
+              SignUpData({
+                first_name,
+                last_name,
+                email,
+                password: passwordHash,
+                confirmation_id: confirmationId,
+              })
+            )
             .then((data) => {
               Mail(first_name, last_name)
                 .then((mailData) => {
@@ -46,12 +60,13 @@ export const SignUp: ControllerType = {
   },
 };
 
-const SignUpData = (
-  first_name: string,
-  last_name: string,
-  email: string,
-  password: string
-) => {
+const SignUpData = ({
+  first_name,
+  last_name,
+  email,
+  password,
+  confirmation_id,
+}: SignUpDataType) => {
   return {
     profile: {
       first_name: first_name,
@@ -60,6 +75,7 @@ const SignUpData = (
       password: password,
       confirmedAccount: false,
       image: "",
+      confirmation_id: confirmation_id,
     },
     account: {
       balance: 0,
@@ -69,14 +85,7 @@ const SignUpData = (
   };
 };
 
-interface SignUpBody {
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-}
-
-const ValidateBody = (body: SignUpBody) => {
+const ValidateBody = (body: SignUpBodyType) => {
   if (body.first_name && body.last_name && body.email && body.password) {
     return Object.values(body).includes("") ||
       Object.values(body).includes(null)
