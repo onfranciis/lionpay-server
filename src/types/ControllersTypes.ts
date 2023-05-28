@@ -7,7 +7,22 @@ export interface ControllerType {
   handler: RequestHandler;
 }
 
-export interface SignInBody {
+export interface SignInBodyType {
   email: string;
   password: string;
+}
+
+export interface SignUpBodyType {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+}
+
+export interface SignUpDataType {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  confirmation_id: string;
 }
