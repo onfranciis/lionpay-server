@@ -14,7 +14,7 @@ export const ConfirmAccount: ControllerType = {
         "profile.confirmation_id": confirmationId,
       });
       if (!result) {
-        res.status(400).json({ message: "Invalid Id" });
+        res.status(400).json({ message: "Invalid confirmation code" });
       } else {
         if (confirmationId === result.profile.confirmation_id) {
           if (result.profile.confirmedAccount) {
@@ -25,7 +25,7 @@ export const ConfirmAccount: ControllerType = {
             updateConfirmationStatus(confirmationId, res);
           }
         } else {
-          res.status(400).json({ message: "Invalid Id" });
+          res.status(400).json({ message: "Invalid confirmation code" });
         }
       }
     }
