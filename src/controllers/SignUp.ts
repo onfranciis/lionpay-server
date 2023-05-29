@@ -35,7 +35,11 @@ export const SignUp: ControllerType = {
               })
             )
             .then((data) => {
-              Mail(first_name, last_name)
+              Mail({
+                firstName: first_name,
+                lastName: last_name,
+                confirmationId,
+              })
                 .then((mailData) => {
                   res.json({
                     message: `Created user ${data.insertedId}`,

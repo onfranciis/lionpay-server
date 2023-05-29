@@ -1,15 +1,17 @@
 import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 import { APIResponse } from "mailersend/lib/services/request.service";
+import { MailParamType } from "../types/UtilsTypes";
 
-const Mail = async (
-  firstName: string,
-  lastName: string
-): Promise<APIResponse> => {
+const Mail = async ({
+  firstName,
+  lastName,
+  confirmationId,
+}: MailParamType): Promise<APIResponse> => {
   const mailerSend = new MailerSend({
     apiKey: process.env.MAILER_SEND_API_KEY ?? "",
   });
 
-  const sentFrom = new Sender("hello@onfranciis.dev", "Your name");
+  const sentFrom = new Sender("hello@onfranciis.dev", "Francis Onukwu");
 
   const recipients = [
     new Recipient("hello@onfranciis.dev", `${firstName} ${lastName}`),
@@ -21,7 +23,9 @@ const Mail = async (
       data: {
         store: { name: "LionPay" },
         customer: { first_name: firstName },
-        user: { confirm_email: `https://lionpay.onfranciis.dev/${Date.now()}` },
+        user: {
+          confirm_email: `https://lionpay.onfranciis.dev/${confirmationId}`,
+        },
       },
     },
   ];
