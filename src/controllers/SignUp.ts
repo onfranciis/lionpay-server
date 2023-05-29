@@ -39,6 +39,7 @@ export const SignUp: ControllerType = {
                 firstName: first_name,
                 lastName: last_name,
                 confirmationId,
+                email,
               })
                 .then((mailData) => {
                   res.json({

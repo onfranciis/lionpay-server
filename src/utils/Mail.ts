@@ -6,25 +6,24 @@ const Mail = async ({
   firstName,
   lastName,
   confirmationId,
+  email,
 }: MailParamType): Promise<APIResponse> => {
   const mailerSend = new MailerSend({
     apiKey: process.env.MAILER_SEND_API_KEY ?? "",
   });
 
-  const sentFrom = new Sender("hello@onfranciis.dev", "Francis Onukwu");
+  const sentFrom = new Sender("lionpay@onfranciis.dev", "LionPay");
 
-  const recipients = [
-    new Recipient("hello@onfranciis.dev", `${firstName} ${lastName}`),
-  ];
+  const recipients = [new Recipient(email, `${firstName} ${lastName}`)];
 
   const personalization = [
     {
-      email: "hello@onfranciis.dev",
+      email: email,
       data: {
         store: { name: "LionPay" },
         customer: { first_name: firstName },
         user: {
-          confirm_email: `https://lionpay.onfranciis.dev/${confirmationId}`,
+          confirm_email: `https://lionpay.onfranciis.dev/confirmation/${confirmationId}`,
         },
       },
     },
