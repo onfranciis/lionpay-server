@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
+import cors from "cors";
 import controllers from "./controllers/Controllers";
 import { StartDBConnection } from "./db/DB";
 dotenv.config();
@@ -8,6 +9,7 @@ dotenv.config();
 const app = express();
 const port = process.env.SERVER_PORT || 1234;
 
+app.use(cors({ origin: "*" }));
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
