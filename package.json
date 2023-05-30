@@ -2,12 +2,12 @@
   "name": "lionpay-server",
   "version": "1.0.0",
   "description": "Backend service for LionPay",
-  "main": "index.js",
+  "main": "./dist/api/index.js",
   "type": "commonjs",
   "scripts": {
     "build": "rimraf dist && npx tsc",
     "prestart": "npm run build",
-    "start": "node dist/index.js",
+    "start": "node dist/api/index.js",
     "preserve": "npm run build",
     "serve": "tsc -w & nodemon dist/index.js"
   },

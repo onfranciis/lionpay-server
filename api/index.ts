@@ -2,8 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cors from "cors";
-import controllers from "./controllers/Controllers";
-import { StartDBConnection } from "./db/DB";
+import controllers from "../src/controllers/Controllers";
+import { StartDBConnection } from "../src/db/DB";
 dotenv.config();
 
 const app = express();
