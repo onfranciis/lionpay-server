@@ -5,7 +5,7 @@
   "main": "./dist/api/index.js",
   "type": "commonjs",
   "scripts": {
-    "build":"node dist/api/index.js",
+    "build":"rimraf dist && npx tsc && node dist/api/index.js",
     "testbuild": "rimraf dist && npx tsc",
     "prestart": "npm run testbuild",
     "start": "node dist/api/index.js",
