@@ -5,10 +5,11 @@
   "main": "./dist/api/index.js",
   "type": "commonjs",
   "scripts": {
-    "build": "rimraf dist && npx tsc",
-    "prestart": "npm run build",
+    "build":"node dist/api/index.js",
+    "testbuild": "rimraf dist && npx tsc",
+    "prestart": "npm run testbuild",
     "start": "node dist/api/index.js",
-    "preserve": "npm run build",
+    "preserve": "npm run testbuild",
     "serve": "tsc -w & nodemon dist/index.js"
   },
   "author": "onfranciis",
