@@ -60,7 +60,7 @@ export const SignUp: ControllerType = {
           .json({ message: "An account with the email already exists" });
       }
     } else {
-      res.sendStatus(400);
+      res.status(409).json({ message: "Invalid details" });
     }
   },
 };
